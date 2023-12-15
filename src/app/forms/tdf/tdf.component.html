@@ -1,0 +1,68 @@
+<div class="container my-2">
+    <div class="row justify-content-center mt-2">
+        <div class="col-md-6 bg-dark text-light border rounded mt-4 p-5">
+            <h1 class="heading text-center">Template Driven Form</h1>
+            <form class="row g-3">
+                <div class="col-12">
+                    <label for="" class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control" id="name" [(ngModel)]="userDetail.name"
+                        placeholder="" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" [(ngModel)]="userDetail.email" id="email"
+                        required>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Phone Number</label>
+                    <input type="text" name="phone" class="form-control" [(ngModel)]="userDetail.phone" id="phone"
+                        required>
+                </div>
+                <div class="col-12">
+                    <label for="inputAddress" class="form-label">Address</label>
+                    <input type="text" name="address" class="form-control" [(ngModel)]="userDetail.address"
+                        id="inputAddress" placeholder="" required>
+                </div>
+                <div class="col-12 text-center">
+                    <button type="submit" (click)="onSubmit()" class="btn btn-success">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- <div class="row justify-content-center mt-5" *ngIf="showCard">
+        <div class="col-sm-4">
+            <div class="bg-dark text-light card show-card">
+                <div class="card-body">
+                    <h5 class="text-success card-title"><b>{{userDetail.name}}</b></h5>
+                    <p class="card-text"><b>Email: </b>{{userDetail.email}}</p>
+                    <p class="card-text"><b>Phone Number: </b>{{userDetail.phone}}</p>
+                    <p class="card-text"><b>Address: </b>{{userDetail.address}}</p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <table class="table table-dark table-striped-columns mt-5">
+        <thead>
+            <tr>
+                <th>S.N</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let detail of userDetailList; let i = index">
+                <td>{{i + 1}}</td>
+                <td>{{userDetailList[i].name}}</td>
+                <td>{{userDetailList[i].email}}</td>
+                <td>{{userDetailList[i].phone}}</td>
+                <td>{{userDetailList[i].address}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</div>

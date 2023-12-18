@@ -6,13 +6,14 @@ import {
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TdfComponent } from './forms/tdf/tdf.component';
 import { ReactiveFormComponent } from './forms/reactive-form/reactive-form.component';
+import { UserDetailsFormComponent } from './forms/user-details-form/user-details-form.component';
 
 @NgModule({
-  declarations: [AppComponent, TdfComponent, ReactiveFormComponent],
-  imports: [BrowserModule, FormsModule, AppRoutingModule],
+  declarations: [AppComponent, TdfComponent, ReactiveFormComponent, UserDetailsFormComponent],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, ReactiveFormsModule],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],
 })

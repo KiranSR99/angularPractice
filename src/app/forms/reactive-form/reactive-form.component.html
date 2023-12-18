@@ -1,0 +1,78 @@
+<div class="wrapper">
+    <div class="box border mb-5 rounded p-5">
+        <h2 class="text-center mb-4">User Details Form</h2>
+        <form [formGroup]="myForm" (ngSubmit)="onReactiveFormSubmit()">
+            <div class="row mb-4">
+                <div class="col">
+                    <label class="form-label" for="name">Name</label>
+                    <input type="text" formControlName="name" id="name" class="form-control" required>
+                    <small *ngIf="myForm.get('name').invalid && myForm.get('name').touched">Please enter a valid name.</small>
+                </div>
+                <div class="col">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" formControlName="email" id="email" class="form-control" required>
+                    <small *ngIf="myForm.get('email').invalid && myForm.get('email').touched">Please enter a valid email.</small>
+
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col">
+                    <label class="form-label" for="phone">Phone Number</label>
+                    <input type="text" formControlName="phone" id="phone" class="form-control" required>
+                    <small *ngIf="myForm.get('phone').invalid && myForm.get('phone').touched">Please enter a valid phone number.</small>
+
+                </div>
+                <div class="col">
+                    <label class="form-label" for="address">Address</label>
+                    <input type="text" formControlName="address" id="address" class="form-control" required>
+                    <small *ngIf="myForm.get('address').invalid && myForm.get('address').touched">Please enter a valid address.</small>
+
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col">
+                    <label class="form-label" for="name">Date of Birth</label>
+                    <input type="date" (input)="calculateAge()" formControlName="dob" id="dob" class="form-control" required>
+                    <small *ngIf="myForm.get('dob').invalid && myForm.get('dob').touched">Please enter a valid date of birth.</small>
+
+                </div>
+                <div class="col-6" *ngIf="myForm.dob">
+                    <label class="form-label" for="email">Age</label>
+                    <input type="text" formControlName="age" id="age" class="form-control">
+                </div>
+            </div>
+
+            <div class="text-center mt-5">
+                <button [disabled]="myForm.invalid" class="btn btn-success block">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <table class="user-table text-center table table-dark table-stripped table-hover">
+        <thead>
+            <tr>
+                <th>S.N</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>DOB</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

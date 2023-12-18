@@ -18,10 +18,10 @@
     width: 1000px;
 }
 
-// .input{
-//     background: transparent !important;
-//     border: 1px solid #fff;
-// }
+.input{
+    background-color: transparent;
+    border: 1px solid #fff;
+}
 
 input.ng-invalid.ng-touched{
     border: 1px solid red;

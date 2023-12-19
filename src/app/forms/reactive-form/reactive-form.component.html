@@ -1,32 +1,50 @@
 <div class="wrapper">
     <div class="box border mb-5 rounded p-5">
         <h2 class="text-center mb-4">User Details Form</h2>
-        <form [formGroup]="myForm" (ngSubmit)="onReactiveFormSubmit()">
+        <form #formRef="ngForm" [formGroup]="myForm" (ngSubmit)="onReactiveFormSubmit()">
             <div class="row mb-4">
                 <div class="col">
                     <label class="form-label" for="name">Name</label>
                     <input type="text" formControlName="name" id="name" class="form-control" required>
-                    <small *ngIf="myForm.get('name').invalid && myForm.get('name').touched">Please enter a valid name.</small>
+                    <ng-container *ngIf="form['name']?.invalid && (form['name']?.touched || form['name']?.dirty)">
+                        <small *ngIf="form['name'].errors?.['required']">Name is required.</small>
+                    </ng-container>
                 </div>
                 <div class="col">
                     <label class="form-label" for="email">Email</label>
-                    <input type="email" formControlName="email" id="email" class="form-control" required>
-                    <small *ngIf="myForm.get('email').invalid && myForm.get('email').touched">Please enter a valid email.</small>
-
+                    <input type="email" formControlName="email" id="email" class="form-control">
+                    <ng-container *ngIf="form['email']?.invalid && form['email']?.touched">
+                        <small *ngIf="form['email'].errors?.['required']; else emailPatternError">Email is
+                            required.</small>
+                        <ng-template #emailPatternError>
+                            <small *ngIf="form['email'].errors?.['emailPatternError']">Please enter a valid
+                                email.</small>
+                        </ng-template>
+                    </ng-container>
                 </div>
             </div>
 
             <div class="row mb-4">
                 <div class="col">
                     <label class="form-label" for="phone">Phone Number</label>
-                    <input type="text" formControlName="phone" id="phone" class="form-control" required>
-                    <small *ngIf="myForm.get('phone').invalid && myForm.get('phone').touched">Please enter a valid phone number.</small>
+                    <input type="text" formControlName="phone" id="phone" class="form-control">
+                    <ng-container *ngIf="form['phone']?.invalid && form['phone']?.touched">
+                        <small *ngIf="form['phone'].errors?.['required']; else phonePatternError">Phone Number is
+                            required.</small>
+                        <ng-template #phonePatternError>
+                            <small *ngIf="form['phone'].errors?.['phonePatternError']">Please enter a valid 10 digit
+                                phone number.</small>
+                        </ng-template>
+                    </ng-container>
+
 
                 </div>
                 <div class="col">
                     <label class="form-label" for="address">Address</label>
-                    <input type="text" formControlName="address" id="address" class="form-control" required>
-                    <small *ngIf="myForm.get('address').invalid && myForm.get('address').touched">Please enter a valid address.</small>
+                    <input type="text" formControlName="address" id="address" class="form-control">
+                    <ng-container *ngIf="form['address']?.invalid && form['address']?.touched">
+                        <small *ngIf="form['address'].errors?.['required']">Address is required.</small>
+                    </ng-container>
 
                 </div>
             </div>
@@ -34,18 +52,20 @@
             <div class="row mb-4">
                 <div class="col">
                     <label class="form-label" for="name">Date of Birth</label>
-                    <input type="date" (input)="calculateAge()" formControlName="dob" id="dob" class="form-control" required>
-                    <small *ngIf="myForm.get('dob').invalid && myForm.get('dob').touched">Please enter a valid date of birth.</small>
+                    <input type="date" (input)="calculateAge()" formControlName="dob" id="dob" class="form-control">
+                    <ng-container *ngIf="form['dob']?.invalid && form['dob']?.touched">
+                        <small *ngIf="form['dob'].errors?.['required']">Date of birth is required.</small>
+                    </ng-container>
 
                 </div>
-                <div class="col-6" *ngIf="myForm.dob">
+                <div class="col-6" *ngIf="form['dob'].value">
                     <label class="form-label" for="email">Age</label>
-                    <input type="text" formControlName="age" id="age" class="form-control">
+                    <input type="text" formControlName="age" id="age" class="form-control" (value)="myForm.age">
                 </div>
             </div>
 
             <div class="text-center mt-5">
-                <button [disabled]="myForm.invalid" class="btn btn-success block">Submit</button>
+                <button class="btn btn-success block" (click)="onReactiveFormSubmit()">Submit</button>
             </div>
         </form>
     </div>
@@ -64,14 +84,14 @@
         </thead>
 
         <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr *ngFor="let item of formDetailList; let i = index">
+                <td>{{ i + 1}}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.phone }}</td>
+                <td>{{ item.address }}</td>
+                <td>{{ item.dob }}</td>
+                <td>{{ item.age }}</td>
             </tr>
         </tbody>
     </table>

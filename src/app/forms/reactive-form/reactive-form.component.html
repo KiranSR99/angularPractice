@@ -5,7 +5,7 @@
             <div class="row mb-4">
                 <div class="col">
                     <label class="form-label" for="name">Name</label>
-                    <input type="text" formControlName="name" id="name" class="form-control" required>
+                    <input (blur)="showAlert()" type="text" formControlName="name" id="name" class="form-control" />
                     <ng-container *ngIf="form['name']?.invalid && (form['name']?.touched || form['name']?.dirty)">
                         <small *ngIf="form['name'].errors?.['required']">Name is required.</small>
                     </ng-container>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="col-6" *ngIf="form['dob'].value">
                     <label class="form-label" for="email">Age</label>
-                    <input type="text" formControlName="age" id="age" class="form-control" (value)="myForm.age">
+                    <input type="text" formControlName="age" id="age" class="form-control">
                 </div>
             </div>
 
@@ -85,7 +85,7 @@
 
         <tbody>
             <tr *ngFor="let item of formDetailList; let i = index">
-                <td>{{ i + 1}}</td>
+                <td>{{ i + 1 }}</td>
                 <td>{{ item.name }}</td>
                 <td>{{ item.email }}</td>
                 <td>{{ item.phone }}</td>

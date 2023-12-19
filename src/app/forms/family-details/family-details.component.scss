@@ -1,0 +1,18 @@
+.center-form{
+    // display: flex;
+    // justify-content: center;
+    // margin-top: 50px;
+}
+
+.person-form, .family-form, input, .inner-div{
+    border-color: #6e6e71 !important;
+}
+
+input.ng-invalid.ng-touched{
+    border: 1px solid red !important;
+}
+
+
+small{
+    color: red;
+}

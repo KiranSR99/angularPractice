@@ -21,11 +21,11 @@ export class ReactiveFormComponent implements OnInit {
   ngOnInit(): void {
     this.myForm = this.fb.group({
       name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      email: ['', [Validators.required, this.emailPatternValidator]],
+      phone: ['', [Validators.required, this.phoneNumberValidator]],
       address: ['', Validators.required],
       dob: ['', Validators.required],
-      age: [''],
+      age: ['']
     });
   }
 
@@ -34,8 +34,6 @@ export class ReactiveFormComponent implements OnInit {
       const newFormDetail: any = { ...this.myForm.value };
       this.formDetailList.push(newFormDetail);
       this.myForm.reset();
-    } else {
-      // Handle form validation errors or display a message to the user
     }
   }
 
@@ -55,7 +53,40 @@ export class ReactiveFormComponent implements OnInit {
       this.myForm.get('age')?.setValue(age.toString());
     }
   }
+
+  emailPatternValidator(control: FormControl){
+    const email: string = control.value;
+    const emailPattern: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if(emailPattern.test(email)){
+      return null;
+    }
+    else{
+      return { emailPatternError: true }
+    }
+  }
+
+  phoneNumberValidator(control: FormControl){
+    const phone: string = control.value;
+    const phonePattern: RegExp = /^\d{10}$/;
+
+    if(phonePattern.test(phone)){
+      return null;
+    }
+    else{
+      return { phonePatternError: true }
+    }
+  }
+
+  showAlert(){
+    if(this.form['name']?.invalid && this.form['name']?.touched){
+      alert("Name is required.");
+    }
+  }
+
+  
 }
+
 
 // emailPatternValidator(): ValidatorFn {
   //   return (control: AbstractControl): { [key: string]: any } | null => {

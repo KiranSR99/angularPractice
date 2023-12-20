@@ -74,14 +74,14 @@
                     <button class="btn btn-success mb-4" (click)="addFamilyDetails($event)">Add More</button>
 
                     <div *ngFor="let detail of getFamilyDetails.controls; let i = index"
-                        class="inner-div border rounded p-4 mb-5">
+                        class="inner-div border rounded p-4 mb-3">
                         <div formArrayName="familyDetails">
                             <div [formGroupName]="i" class="d-flex align-items-end justify-content-between">
                                 <div class="col-3">
                                     <label class="form-label">First Name</label>
                                     <input type="text" formControlName="familyFirstName" class="form-control">
                                     <small
-                                        *ngIf="getFamilyDetails.controls[i].get('familyFirstName')?.invalid && getFamilyDetails.controls[i].get('familyFirstName')?.touched">
+                                        *ngIf="detail.get('familyFirstName')?.invalid && detail.get('familyFirstName')?.touched">
                                         First Name is required!
                                     </small>
                                 </div>
@@ -89,7 +89,7 @@
                                     <label class="form-label">Last Name</label>
                                     <input type="text" formControlName="familyLastName" class="form-control">
                                     <small
-                                        *ngIf="getFamilyDetails.controls[i].get('familyLastName')?.invalid && getFamilyDetails.controls[i].get('familyLastName')?.touched">
+                                        *ngIf="detail.get('familyLastName')?.invalid && detail.get('familyLastName')?.touched">
                                         Last Name is required!
                                     </small>
                                 </div>
@@ -97,13 +97,13 @@
                                     <label class="form-label">Phone Number</label>
                                     <input type="text" formControlName="familyPhone" class="form-control">
                                     <ng-container
-                                        *ngIf="getFamilyDetails.controls[i].get('familyContact')?.invalid && getFamilyDetails.controls[i].get('familyContact')?.touched">
+                                        *ngIf="detail.get('familyContact')?.invalid && detail.get('familyContact')?.touched">
                                         <small
-                                            *ngIf="getFamilyDetails.controls[i].get('familyContact')?.errors?.['required']; else familyPhonePatternError">Phone
+                                            *ngIf="detail.get('familyContact')?.errors?.['required']; else familyPhonePatternError">Phone
                                             Number is required !</small>
                                         <ng-template #familyPhonePatternError>
                                             <small
-                                                *ngIf="getFamilyDetails.controls[i].get('familyContact')?.errors?.['phonePatternError']">Please
+                                                *ngIf="detail.get('familyContact')?.errors?.['phonePatternError']">Please
                                                 enter 10 digit valid phone number.</small>
                                         </ng-template>
                                     </ng-container>
@@ -112,12 +112,10 @@
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="d-flex justify-content-between">
-                        <button class="btn btn-danger" (click)="resetThisForm()">Reset</button>
-                        <button (click)="onFormSubmit()" class="btn btn-success">Submit</button>
-                    </div>
+                </div>
+                <div class="d-flex justify-content-between mt-3">
+                    <button class="btn btn-danger" (click)="resetThisForm()">Reset</button>
+                    <button (click)="onFormSubmit()" class="btn btn-success">Submit</button>
                 </div>
             </form>
         </div>
@@ -143,6 +141,5 @@
             </div>
         </div>
     </div>
-
-
 </div>
+

@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-family-details',
@@ -22,11 +28,7 @@ export class FamilyDetailsComponent implements OnInit {
       age: ['', Validators.required],
 
       familyDetails: this.fb.array([
-        this.fb.group({
-          familyFirstName: ['', Validators.required],
-          familyLastName: ['', Validators.required],
-          familyPhone: ['', [Validators.required, this.phoneNumberValidator]],
-        }),
+
       ]),
     });
   }
@@ -40,9 +42,9 @@ export class FamilyDetailsComponent implements OnInit {
 
     this.getFamilyDetails.push(
       this.fb.group({
-        familyFirstName: '',
-        familyLastName: '',
-        familyPhone: '',
+        familyFirstName: ['', [Validators.required]],
+        familyLastName: ['', [Validators.required]],
+        familyPhone: ['', [Validators.required, this.phoneNumberValidator]],
       })
     );
   }
@@ -51,15 +53,17 @@ export class FamilyDetailsComponent implements OnInit {
     this.getFamilyDetails.removeAt(i);
   }
 
-  onFormSubmit(){
+  onFormSubmit() {
     if (this.detailsForm.valid) {
       const newFormDetail: any = { ...this.detailsForm.value };
       this.formDetailList.push(newFormDetail);
       this.detailsForm.reset();
+
+      console.log(this.detailsForm.value);
     }
   }
 
-  resetThisForm(){
+  resetThisForm() {
     this.detailsForm.reset();
   }
 
@@ -70,34 +74,36 @@ export class FamilyDetailsComponent implements OnInit {
       const dob = new Date(dobValue);
       let age = today.getFullYear() - dob.getFullYear();
       const monthDiff = today.getMonth() - dob.getMonth();
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && today.getDate() < dob.getDate())
+      ) {
         age--;
       }
       this.detailsForm.get('age')?.setValue(age.toString());
     }
   }
 
-  emailPatternValidator(control: FormControl){
+  emailPatternValidator(control: FormControl) {
     const email: string = control.value;
-    const emailPattern: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailPattern: RegExp =
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if(emailPattern.test(email)){
+    if (emailPattern.test(email)) {
       return null;
-    }
-    else{
-      return { emailPatternError: true }
+    } else {
+      return { emailPatternError: true };
     }
   }
 
-  phoneNumberValidator(control: FormControl){
+  phoneNumberValidator(control: FormControl) {
     const phone: string = control.value;
     const phonePattern: RegExp = /^\d{10}$/;
 
-    if(phonePattern.test(phone)){
+    if (phonePattern.test(phone)) {
       return null;
-    }
-    else{
-      return { phonePatternError: true }
+    } else {
+      return { phonePatternError: true };
     }
   }
 
@@ -111,6 +117,4 @@ export class FamilyDetailsComponent implements OnInit {
 
     return null;
   }
-
-
 }

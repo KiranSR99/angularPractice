@@ -1,7 +1,7 @@
 <div class="container my-4">
     <div class="center-form">
         <div>
-            <form [formGroup]="detailsForm">
+            <form [formGroup]="detailsForm" (ngSubmit)="onFormSubmit()">
                 <div class="person-form border rounded p-3 mb-3">
                     <h2 class="text-center">Personal Details</h2>
                     <div class="row mb-5">
@@ -38,20 +38,31 @@
                         <div class="col-4">
                             <label class="form-label">Phone Number</label>
                             <input type="text" formControlName="phone" class="form-control">
-                            <ng-container *ngIf="detailsForm('phone')?.invalid && detailsForm('phone')?.touched">
-                                <small *ngIf="detailsForm('phone').errors?.['required']; else phonePatternError">Phone Number is required.</small>
+                            <ng-container
+                                *ngIf="detailsForm.get('phone')?.invalid && detailsForm.get('phone')?.touched">
+                                <small
+                                    *ngIf="detailsForm.get('phone').errors?.['required']; else phonePatternError">Phone
+                                    Number is required !</small>
                                 <ng-template #phonePatternError>
-                                    <small *ngIf="detailsForm('phone').errors?.['phonePatternError']">Please enter a valid 10 digit phone number.</small>
+                                    <small *ngIf="detailsForm.get('phone').errors?.['phonePatternError']">Please enter
+                                        10 digit valid phone number.</small>
                                 </ng-template>
                             </ng-container>
                         </div>
                         <div class="col-4">
                             <label class="form-label">Date of Birth</label>
-                            <input type="date" formControlName="dob" class="form-control">
-                            <small *ngIf="detailsForm.get('dob')?.invalid && detailsForm.get('dob')?.touched">Date of
-                                birth is required !</small>
+                            <input (input)="calculateAge()" type="date" formControlName="dob" class="form-control">
+                            <ng-container *ngIf="detailsForm.get('dob')?.invalid && detailsForm.get('dob')?.touched">
+                                <small *ngIf="detailsForm.get('dob').errors?.['required']; else futureDateError">Date of birth is required
+                                    !</small>
+                                <ng-template #futureDateError>
+                                    <small *ngIf="detailsForm.get('dob')?.errors?.invalidDate">
+                                        Future dates are not allowed.
+                                    </small>
+                                </ng-template>
+                            </ng-container>
                         </div>
-                        <div class="col-4" *ngIf="detailsForm.dob">
+                        <div class="col-4" *ngIf="detailsForm.get('dob')?.value">
                             <label class="form-label">Age</label>
                             <input type="text" formControlName="age" class="form-control">
                         </div>
@@ -63,30 +74,74 @@
                     <button class="btn btn-success mb-4" (click)="addFamilyDetails()">Add More</button>
 
                     <div *ngFor="let detail of getFamilyDetails.controls; let i = index"
-                        class="inner-div  border rounded p-4 mb-5">
-                        <div [formGroupName]="i" class="d-flex align-items-end justify-content-between">
-                            <div class="col-3">
-                                <label class="form-label">First Name</label>
-                                <input type="text" formControlName="firstName" class="form-control">
+                        class="inner-div border rounded p-4 mb-5">
+                        <div formArrayName="familyDetails">
+                            <div [formGroupName]="i" class="d-flex align-items-end justify-content-between">
+                                <div class="col-3">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" formControlName="familyFirstName" class="form-control">
+                                    <small
+                                        *ngIf="getFamilyDetails.controls[i].get('familyFirstName')?.invalid && getFamilyDetails.controls[i].get('familyFirstName')?.touched">
+                                        First Name is required!
+                                    </small>
+                                </div>
+                                <div class="col-3">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" formControlName="familyLastName" class="form-control">
+                                    <small
+                                        *ngIf="getFamilyDetails.controls[i].get('familyLastName')?.invalid && getFamilyDetails.controls[i].get('familyLastName')?.touched">
+                                        Last Name is required!
+                                    </small>
+                                </div>
+                                <div class="col-3">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="text" formControlName="familyPhone" class="form-control">
+                                    <ng-container
+                                        *ngIf="getFamilyDetails.controls[i].get('familyContact')?.invalid && getFamilyDetails.controls[i].get('familyContact')?.touched">
+                                        <small
+                                            *ngIf="getFamilyDetails.controls[i].get('familyContact')?.errors?.['required']; else familyPhonePatternError">Phone
+                                            Number is required !</small>
+                                        <ng-template #familyPhonePatternError>
+                                            <small
+                                                *ngIf="getFamilyDetails.controls[i].get('familyContact')?.errors?.['phonePatternError']">Please
+                                                enter 10 digit valid phone number.</small>
+                                        </ng-template>
+                                    </ng-container>
+                                </div>
+                                <button class="btn btn-danger" (click)="deleteFamilyDetails(i)">Delete</button>
                             </div>
-                            <div class="col-3">
-                                <label class="form-label">Last Name</label>
-                                <input type="email" formControlName="lastName" class="form-control">
-                            </div>
-                            <div class="col-3">
-                                <label class="form-label">Contact</label>
-                                <input type="text" formControlName="contact" class="form-control">
-                            </div>
-                            <button class="btn btn-danger" (click)="deleteFamilyDetails(i)">Delete</button>
                         </div>
                     </div>
 
+
                     <div class="d-flex justify-content-between">
                         <button class="btn btn-danger">Reset</button>
-                        <button class="btn btn-success">Submit</button>
+                        <button (click)="onFormSubmit()" class="btn btn-success">Submit</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+
+    <div class="my-5">
+        <div *ngFor="let data of formDetailList; let i = index" class="info-div border rounded p-4 mb-3">
+            <h2>{{i + 1}}. Personal Details</h2>
+            <p><b>Name: </b>{{ data.firstName + " " + data.lastName }}</p>
+            <p><b>Email: </b>{{ data.email }}</p>
+            <p><b>Phone: </b>{{ data.phone }}</p>
+            <p><b>Date of Birth: </b>{{ data.dob }}</p>
+            <p><b>Age: </b>{{ data.age }}</p>
+            <hr>
+
+            <div class="family-details">
+                <h3>Family Details</h3>
+                <div *ngFor="let family of data.familyDetails; let j = index">
+                    <p><b>Name: </b>{{ family.familyFirstName + " " + family.familyLastName }}</p>
+                    <p><b>Phone Number: </b>{{ family.familyPhone }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>

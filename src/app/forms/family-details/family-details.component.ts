@@ -35,7 +35,9 @@ export class FamilyDetailsComponent implements OnInit {
     return this.detailsForm.get('familyDetails') as FormArray;
   }
 
-  addFamilyDetails(): void {
+  addFamilyDetails(event: Event): void {
+    event.preventDefault();
+
     this.getFamilyDetails.push(
       this.fb.group({
         familyFirstName: '',
@@ -55,6 +57,10 @@ export class FamilyDetailsComponent implements OnInit {
       this.formDetailList.push(newFormDetail);
       this.detailsForm.reset();
     }
+  }
+
+  resetThisForm(){
+    this.detailsForm.reset();
   }
 
   calculateAge(): void {

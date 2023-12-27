@@ -1,0 +1,165 @@
+<div class="container d-flex justify-content-center my-5">
+    <div class="col-10">
+        <h4>Reactive Form Example</h4>
+        <div class="bg-light">
+            <form [formGroup]="userInfo" (ngSubmit)="onUserInfoFormSubmit(userInfo?.value)" class="p-5">
+                <div class="personal-details-div">
+                    <h5>Personal Details</h5>
+                    <hr>
+                    <div class="row my-4">
+                        <div class="col-4">
+                            <label class="form-label">Your First Name</label>
+                            <input type="text" formControlName="firstName" class="form-control"
+                                placeholder="Enter your first name">
+                            <small
+                                *ngIf="userInfo.get('firstName')?.invalid && userInfo.get('firstName')?.touched">First
+                                name is required !</small>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label">Your Last Name</label>
+                            <input type="text" formControlName="lastName" class="form-control"
+                                placeholder="Enter your last name">
+                            <small *ngIf="userInfo.get('lastName')?.invalid && userInfo.get('lastName')?.touched">Last
+                                name is required !</small>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label">Your Date of Birth</label>
+                            <input type="date" [max]="maxDate" formControlName="dob" class="form-control"
+                                (input)="getAge(userInfo)" placeholder="Enter your date of birth">
+                            <small *ngIf="userInfo.get('dob')?.invalid && userInfo.get('dob')?.touched">Date of birth is
+                                required !</small>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-4" *ngIf="userInfo.get('dob')?.value">
+                            <label class="form-label">Your Age</label>
+                            <input type="text" formControlName="age" class="form-control" placeholder="Enter your age"
+                                readonly>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label">Your Email</label>
+                            <input type="email" formControlName="email" class="form-control"
+                                placeholder="Enter your email">
+                            <ng-container *ngIf="userInfo.get('email')?.invalid && userInfo.get('email')?.touched">
+                                <small *ngIf="userInfo.get('email').errors?.['required']; else emailPatternError">Email
+                                    is required.</small>
+                                <ng-template #emailPatternError>
+                                    <small *ngIf="userInfo.get('email').errors?.['emailPatternError']">Please enter a
+                                        valid
+                                        email.</small>
+                                </ng-template>
+                            </ng-container>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label">Your Phone Number</label>
+                            <input type="text" formControlName="phone" class="form-control"
+                                placeholder="Enter your phone number">
+                            <ng-container *ngIf="userInfo.get('phone').invalid && userInfo.get('phone').touched">
+                                <small *ngIf="userInfo.get('phone').hasError('required'); else phoneNumberError">
+                                    Phone Number is required!
+                                </small>
+                                <ng-template #phoneNumberError>
+                                    <small *ngIf="userInfo.get('phone').hasError('phonePatternError')">
+                                        Please enter a 10-digit valid phone number.
+                                    </small>
+                                </ng-template>
+                            </ng-container>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="family-details-div">
+                    <div class="d-flex justify-content-between mt-5">
+                        <h5>Family Details</h5>
+                        <button class="btn btn-outline-primary" (click)="addFamilyDetails($event)"><i
+                                class="fa-solid fa-plus"></i> Add More</button>
+                    </div>
+                    <hr>
+                    <div class="dynamic-div" *ngFor="let data of familyDetails.controls; let i = index">
+                        <div formArrayName="familyDetailsArray">
+                            <div [formGroupName]="i">
+                                <div class="d-flex justify-content-between mt-5">
+                                    <h5>{{i + 1}}) Enter your family members details below</h5>
+                                    <button *ngIf="familyDetails.length>1" class="btn btn-danger" (click)="deleteFamilyDetails(i)"><i
+                                            class="fa-solid fa-trash-can"></i></button>
+                                </div>
+
+                                <div class="row my-4">
+                                    <div class="col-4">
+                                        <label class="form-label"> First Name</label>
+                                        <input type="text" formControlName="firstName" class="form-control"
+                                            placeholder="Enter first name">
+                                        <small
+                                            *ngIf="data.get('firstName')?.invalid && data.get('firstName')?.touched">First
+                                            name is required !</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" formControlName="lastName" class="form-control"
+                                            placeholder="Enter last name">
+                                        <small
+                                            *ngIf="data.get('lastName')?.invalid && data.get('lastName')?.touched">Last
+                                            name is required !</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-label">Date of Birth</label>
+                                        <input type="date" formControlName="dob" class="form-control" (input)="getAgeForFamilyMember(i)"
+                                            placeholder="Enter date of birth">
+                                        <small *ngIf="data.get('dob')?.invalid && data.get('dob')?.touched">Date of
+                                            birth is required !</small>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-4" *ngIf="data.get('dob')?.value">
+                                        <label class="form-label">Age</label>
+                                        <input type="text" formControlName="age" class="form-control"
+                                            placeholder="Enter age">
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" formControlName="email" class="form-control"
+                                            placeholder="Enter email">
+                                        <ng-container *ngIf="data.get('email')?.invalid && data.get('email')?.touched">
+                                            <small
+                                                *ngIf="data.get('email')?.errors?.['required']; else emailPatternError">Email
+                                                is required.</small>
+                                            <ng-template #emailPatternError>
+                                                <small *ngIf="data.get('email')?.errors?.['emailPatternError']">Please
+                                                    enter a
+                                                    valid
+                                                    email.</small>
+                                            </ng-template>
+                                        </ng-container>
+                                    </div>
+                                    <div class="col-4">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="text" formControlName="phone" class="form-control"
+                                            placeholder="Enter phone number">
+                                        <ng-container *ngIf="data.get('phone')?.invalid && data.get('phone')?.touched">
+                                            <small
+                                                *ngIf="data.get('phone')?.hasError('required'); else phoneNumberError">
+                                                Phone Number is required!
+                                            </small>
+                                            <ng-template #phoneNumberError>
+                                                <small *ngIf="data.get('phone')?.hasError('phonePatternError')">
+                                                    Please enter a 10-digit valid phone number.
+                                                </small>
+                                            </ng-template>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mt-4">
+                    <button class="btn btn-danger" (click)="onUserFormReset()">Reset</button>
+                    <button class="btn btn-outline-primary" (click)="onUserInfoFormSubmit(userInfo?.value)">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

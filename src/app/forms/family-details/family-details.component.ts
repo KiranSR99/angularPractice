@@ -28,7 +28,11 @@ export class FamilyDetailsComponent implements OnInit {
       age: ['', Validators.required],
 
       familyDetails: this.fb.array([
-
+        this.fb.group({
+          familyFirstName: ['', [Validators.required]],
+          familyLastName: ['', [Validators.required]],
+          familyPhone: ['', [Validators.required, this.phoneNumberValidator]],
+        })
       ]),
     });
   }

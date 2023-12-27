@@ -12,11 +12,14 @@ import { ReactiveFormComponent } from './forms/reactive-form/reactive-form.compo
 import { UserDetailsFormComponent } from './forms/user-details-form/user-details-form.component';
 import { FamilyDetailsComponent } from './forms/family-details/family-details.component';
 import { UserDetailsListComponent } from './user-details-list/user-details-list.component';
+import { InfoFormComponent } from './forms/info-form/info-form.component';
+import { DatePipe } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, TdfComponent, ReactiveFormComponent, UserDetailsFormComponent, FamilyDetailsComponent, UserDetailsListComponent],
-  imports: [BrowserModule, FormsModule, AppRoutingModule, ReactiveFormsModule],
-  providers: [provideClientHydration()],
+  declarations: [AppComponent, TdfComponent, ReactiveFormComponent, UserDetailsFormComponent, FamilyDetailsComponent, UserDetailsListComponent, InfoFormComponent],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, ReactiveFormsModule, HttpClientModule],
+  providers: [provideClientHydration(), DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

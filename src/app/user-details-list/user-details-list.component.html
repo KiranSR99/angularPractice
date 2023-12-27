@@ -1,0 +1,26 @@
+<div *ngIf="detailsToDisplay">
+    <h2>User Details</h2>
+
+    <p><strong>First Name:</strong> {{ detailsToDisplay.firstName }}</p>
+    <p><strong>Last Name:</strong> {{ detailsToDisplay.lastName }}</p>
+    <p><strong>Date of Birth:</strong> {{ detailsToDisplay.dob }}</p>
+    <p><strong>Age:</strong> {{ detailsToDisplay.age }}</p>
+    <p><strong>Email:</strong> {{ detailsToDisplay.email }}</p>
+    <p><strong>Phone:</strong> {{ detailsToDisplay.phone }}</p>
+
+    <!-- If there are family details to display -->
+    <div *ngIf="detailsToDisplay.familyDetailsArray && detailsToDisplay.familyDetailsArray.length > 0">
+        <h3>Family Details</h3>
+        <div *ngFor="let familyMember of detailsToDisplay.familyDetailsArray">
+            <hr />
+            <p><strong>First Name:</strong> {{ familyMember.firstName }}</p>
+            <p><strong>Last Name:</strong> {{ familyMember.lastName }}</p>
+            <p><strong>Date of Birth:</strong> {{ familyMember.dob }}</p>
+            <p><strong>Age:</strong> {{ familyMember.age }}</p>
+            <p><strong>Email:</strong> {{ familyMember.email }}</p>
+            <p><strong>Phone:</strong> {{ familyMember.phone }}</p>
+        </div>
+    </div>
+</div>
+
+<button class="btn btn-outline-primary mt-5" routerLink="/form">Go Back</button>

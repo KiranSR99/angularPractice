@@ -1,26 +1,34 @@
-<div *ngIf="detailsToDisplay">
-    <h2>User Details</h2>
+<div class="container p-4">
+    <div *ngIf="personalDetail">
+        <h2>Personal Detail</h2>
 
-    <p><strong>First Name:</strong> {{ detailsToDisplay.firstName }}</p>
-    <p><strong>Last Name:</strong> {{ detailsToDisplay.lastName }}</p>
-    <p><strong>Date of Birth:</strong> {{ detailsToDisplay.dob }}</p>
-    <p><strong>Age:</strong> {{ detailsToDisplay.age }}</p>
-    <p><strong>Email:</strong> {{ detailsToDisplay.email }}</p>
-    <p><strong>Phone:</strong> {{ detailsToDisplay.phone }}</p>
+        <p><strong>First Name:</strong> {{ personalDetail.firstName }}</p>
+        <p><strong>Last Name:</strong> {{ personalDetail.lastName }}</p>
+        <p><strong>Date of Birth:</strong> {{ personalDetail.dob }}</p>
+        <p><strong>Age:</strong> {{ personalDetail.age }}</p>
+        <p><strong>Email:</strong> {{ personalDetail.email }}</p>
+        <p><strong>Phone:</strong> {{ personalDetail.phone }}</p>
 
-    <!-- If there are family details to display -->
-    <div *ngIf="detailsToDisplay.familyDetailsArray && detailsToDisplay.familyDetailsArray.length > 0">
-        <h3>Family Details</h3>
-        <div *ngFor="let familyMember of detailsToDisplay.familyDetailsArray">
-            <hr />
-            <p><strong>First Name:</strong> {{ familyMember.firstName }}</p>
-            <p><strong>Last Name:</strong> {{ familyMember.lastName }}</p>
-            <p><strong>Date of Birth:</strong> {{ familyMember.dob }}</p>
-            <p><strong>Age:</strong> {{ familyMember.age }}</p>
-            <p><strong>Email:</strong> {{ familyMember.email }}</p>
-            <p><strong>Phone:</strong> {{ familyMember.phone }}</p>
+        <hr />
+        <h4 class="mb-3">Family Details</h4>
+        <div class="family-details d-flex"
+            *ngIf="personalDetail.familyDetails && personalDetail.familyDetails.length > 0">
+            <div *ngFor="let familyMember of personalDetail.familyDetails; let i = index">
+                <div class="card custom-card" style="width: 20rem;">
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">Family Detail {{i + 1}}</h5> -->
+                        <p><strong>First Name:</strong> {{ familyMember.firstName }}</p>
+                        <p><strong>Last Name:</strong> {{ familyMember.lastName }}</p>
+                        <p><strong>Date of Birth:</strong> {{ familyMember.dob }}</p>
+                        <p><strong>Age:</strong> {{ familyMember.age }}</p>
+                        <p><strong>Email:</strong> {{ familyMember.email }}</p>
+                        <p><strong>Phone:</strong> {{ familyMember.phone }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
-<button class="btn btn-outline-primary mt-5" routerLink="/form">Go Back</button>
+    <button class="btn btn-outline-primary mt-5" routerLink="/user-detail">Go Back</button>
+
+</div>

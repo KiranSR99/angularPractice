@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { param } from 'jquery';
+import { HttpHandlerServiceService } from '../services/http-handler-service.service';
+import { response } from 'express';
 
 @Component({
   selector: 'app-user-details-list',
@@ -8,19 +10,29 @@ import { param } from 'jquery';
   styleUrls: ['./user-details-list.component.scss'],
 })
 export class UserDetailsListComponent implements OnInit {
-  constructor(private route: ActivatedRoute) {}
-  detailsToDisplay: any;
+  constructor(
+    private route: ActivatedRoute,
+    private httpHandler: HttpHandlerServiceService
+  ) {}
+
+  userId: any;
+  personalDetail: any;
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params: any) => {
-      const userData = params['data']; // Retrieve user data from query params
-      if (userData) {
-        try {
-          this.detailsToDisplay = JSON.parse(userData); // Parse the received JSON string
-        } catch (error) {
-          console.error('Error parsing JSON:', error);
-        }
-      }
+    this.route.params.subscribe((params: any) => {
+      this.userId = params['id'];
+      this.getPersonalDetailById();
     });
+  }
+
+  getPersonalDetailById() {
+    this.httpHandler.getPersonalDetailById(this.userId).subscribe(
+      (response) => {
+        this.personalDetail = response.data;
+      },
+      (error) => {
+        console.error('Error while fetching data.', error);
+      }
+    );
   }
 }

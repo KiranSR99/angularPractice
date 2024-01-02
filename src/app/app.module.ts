@@ -13,12 +13,43 @@ import { UserDetailsFormComponent } from './forms/user-details-form/user-details
 import { FamilyDetailsComponent } from './forms/family-details/family-details.component';
 import { UserDetailsListComponent } from './user-details-list/user-details-list.component';
 import { InfoFormComponent } from './forms/info-form/info-form.component';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { InfoUpdateFormComponent } from './forms/info-update-form/info-update-form.component';
+import { NepaliFontPipe } from './pipes/nepali-font.pipe';
+import { AgeFormatPipe } from './pipes/age-format.pipe';
+import { UserDetailTableComponent } from './user-detail-table/user-detail-table.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
-  declarations: [AppComponent, TdfComponent, ReactiveFormComponent, UserDetailsFormComponent, FamilyDetailsComponent, UserDetailsListComponent, InfoFormComponent],
-  imports: [BrowserModule, FormsModule, AppRoutingModule, ReactiveFormsModule, HttpClientModule],
+  declarations: [
+    AppComponent,
+    TdfComponent,
+    ReactiveFormComponent,
+    UserDetailsFormComponent,
+    FamilyDetailsComponent,
+    UserDetailsListComponent,
+    InfoFormComponent,
+    InfoUpdateFormComponent,
+    NepaliFontPipe,
+    AgeFormatPipe,
+    UserDetailTableComponent,
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      positionClass: "toast-top-center",
+      preventDuplicates:true,
+      timeOut: 3000
+    }),
+  ],
   providers: [provideClientHydration(), DatePipe],
   bootstrap: [AppComponent],
 })

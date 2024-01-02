@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="d-flex justify-content-between mt-5">
+        <h2>Personal Details</h2>
+        <button class="btn btn-outline-primary" routerLink="/form">Go Back</button>
+    </div>
+    <table class="user-table text-center table my-3 table-stripped table-hover">
+        <thead>
+            <tr class="bg-dark">
+                <th>S.N</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date of Birth</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let userData of apiResponseData; let i = index">
+            <tr>
+                <td>{{ i + 1 }}</td>
+                <td>{{ userData.firstName }}</td>
+                <td>{{ userData.lastName }}</td>
+                <td>{{ userData.dob }}</td>
+                <td>{{ userData.age | ageFormat}}</td>
+                <td>{{ userData.email }}</td>   
+                <td>{{ userData.phone }}</td>
+                <td>
+                    <div>
+                        <button class="btn btn-warning text-light" (click)="viewDetail(userData.id)"><i class="bi bi-eye-fill"></i></button>
+                        <button class="btn btn-success mx-2" (click)="openUpdateForm(userData.id)"><i class="bi bi-pencil-square"></i></button>
+                        <button class="btn btn-danger" (click)="deletePersonalDetail(userData.id)"><i class="bi bi-trash-fill"></i></button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <table class="nested-table table-dark text-light table my-3">
+                        <caption>Family Details for {{ userData.firstName }} {{ userData.lastName }}</caption>
+                        <thead>
+                            <tr>
+                                <th>S.N</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Date of Birth</th>
+                                <th>Age</th>
+                                <th>Email</th>
+                                <th>Phone Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let familyMember of userData.familyDetails; let j = index">
+                                <td>{{ (j + 1) | nepaliFont }}</td>
+                                <td>{{ familyMember.firstName }}</td>
+                                <td>{{ familyMember.lastName }}</td>
+                                <td>{{ familyMember.dob }}</td>
+                                <td>{{ familyMember.age | ageFormat}}</td>
+                                <td>{{ familyMember.email }}</td>
+                                <td>{{ familyMember.phone }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

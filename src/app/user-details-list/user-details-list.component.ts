@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { param } from 'jquery';
 import { HttpHandlerServiceService } from '../services/http-handler-service.service';
 import { response } from 'express';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user-details-list',
@@ -10,9 +11,11 @@ import { response } from 'express';
   styleUrls: ['./user-details-list.component.scss'],
 })
 export class UserDetailsListComponent implements OnInit {
+
   constructor(
     private route: ActivatedRoute,
-    private httpHandler: HttpHandlerServiceService
+    private httpHandler: HttpHandlerServiceService,
+    private location: Location
   ) {}
 
   userId: any;
@@ -34,5 +37,9 @@ export class UserDetailsListComponent implements OnInit {
         console.error('Error while fetching data.', error);
       }
     );
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

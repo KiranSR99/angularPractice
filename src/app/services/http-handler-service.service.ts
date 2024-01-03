@@ -42,7 +42,7 @@ export class HttpHandlerServiceService {
   }
 
   //DELETE method to delete family detail by id
-  deleteFamilyDetailById(id: number){
+  deleteFamilyDetailById(id: number): Observable<any>{
     return this.http.delete(`${this.apiUrl}/familyDetail/delete/${id}`);
   }
 }

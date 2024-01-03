@@ -46,7 +46,7 @@ export class UserDetailTableComponent implements OnInit {
 
   //Opening personal detail in another page according to id
   viewDetail(userId: number) {
-    this.router.navigate(['/user-details-list', userId]);
+    this.router.navigate(['main/user-details-list', userId]);
   }
 
   //Deleting personal details according to id
@@ -72,6 +72,10 @@ export class UserDetailTableComponent implements OnInit {
 
   //Updating personal detail using update form
   openUpdateForm(userId: number) {
-    this.router.navigate(['/form-update', userId]);
+    this.router.navigate(['main/form-update', userId]);
+  }
+
+  goToForm(){
+    this.router.navigate(['main/form']);
   }
 }

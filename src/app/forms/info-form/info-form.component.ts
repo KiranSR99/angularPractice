@@ -7,7 +7,7 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { AgeServiceService } from '../../services/age-service.service';
 import { HttpHandlerServiceService } from '../../services/http-handler-service.service';
 import { ToastrService } from 'ngx-toastr';
@@ -30,7 +30,8 @@ export class InfoFormComponent implements OnInit {
     private date: DatePipe,
     private calculateAge: AgeServiceService,
     private apiService: HttpHandlerServiceService,
-    private toast: ToastService
+    private toast: ToastService,
+    private location:Location
   ) {}
 
   ngOnInit(): void {
@@ -103,7 +104,7 @@ export class InfoFormComponent implements OnInit {
         }
       );
     }
-    this.router.navigate(['user-detail']);
+    this.location.back();
   }
 
   getAge(formGroup: FormGroup): void {

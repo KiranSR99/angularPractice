@@ -1,0 +1,27 @@
+.side-navbar{
+    width: 250px;
+    min-height: 100vh;
+    position: fixed;
+    padding:  10px 30px;
+}
+
+.menus{
+    margin-top: 30px;
+    font-size: 18px;
+}
+
+.menus li{
+    list-style: none;
+    line-height: 2.5;
+}
+
+.logo h3{
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    font-weight: 400;
+}
+
+.menus li:hover{
+    cursor: pointer;
+    color: yellowgreen;
+}

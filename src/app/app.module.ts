@@ -21,6 +21,11 @@ import { AgeFormatPipe } from './pipes/age-format.pipe';
 import { UserDetailTableComponent } from './user-detail-table/user-detail-table.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { SideNavbarComponent } from './components/side-navbar/side-navbar.component';
+import { MainComponent } from './components/main/main.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +40,11 @@ import { ToastrModule } from 'ngx-toastr';
     NepaliFontPipe,
     AgeFormatPipe,
     UserDetailTableComponent,
+    HeaderComponent,
+    FooterComponent,
+    SideNavbarComponent,
+    MainComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,17 +4,28 @@ import { InfoFormComponent } from './forms/info-form/info-form.component';
 import { UserDetailsListComponent } from '../app/user-details-list/user-details-list.component';
 import { InfoUpdateFormComponent } from './forms/info-update-form/info-update-form.component';
 import { UserDetailTableComponent } from './user-detail-table/user-detail-table.component';
+import { MainComponent } from './components/main/main.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
-  {path: '', redirectTo:'/form', pathMatch:'full'},
-  {path: 'form', component: InfoFormComponent},
-  {path: 'user-details-list/:id', component: UserDetailsListComponent},
-  {path: 'form-update/:id', component: InfoUpdateFormComponent},
-  {path: 'user-detail', component:UserDetailTableComponent}
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
+  { path: 'user-detail', component: UserDetailTableComponent },
+  {
+    path: 'main',
+    component: MainComponent,
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'personal-details', component: UserDetailTableComponent },
+      { path: 'form', component: InfoFormComponent },
+      { path: 'user-details-list/:id', component: UserDetailsListComponent },
+      { path: 'form-update/:id', component: InfoUpdateFormComponent },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

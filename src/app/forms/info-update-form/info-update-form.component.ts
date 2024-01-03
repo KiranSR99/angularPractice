@@ -8,7 +8,7 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
-import { DatePipe } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { AgeServiceService } from '../../services/age-service.service';
 import { HttpHandlerServiceService } from '../../services/http-handler-service.service';
 import { ToastService } from '../../services/toast.service';
@@ -33,7 +33,8 @@ export class InfoUpdateFormComponent {
     private apiService: HttpHandlerServiceService,
     private route: ActivatedRoute,
     private router: Router,
-    private toast: ToastService
+    private toast: ToastService,
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -126,7 +127,7 @@ export class InfoUpdateFormComponent {
       );
 
       //navigate back to table on successful update
-      this.router.navigate(['/user-detail']);
+      this.location.back();
     }
   }
 
@@ -169,8 +170,12 @@ export class InfoUpdateFormComponent {
   }
 
   //To clear the form
-  onUserFormReset() {
-    return this.userInfo.reset();
+  // onUserFormReset() {
+  //   return this.userInfo.reset();
+  // }
+
+  goBack(){
+    this.location.back();
   }
 
   populateFormWithData(data: any): void {

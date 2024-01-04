@@ -26,6 +26,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SideNavbarComponent } from './components/side-navbar/side-navbar.component';
 import { MainComponent } from './components/main/main.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DataSharingComponent } from './data-sharing/data-sharing.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     SideNavbarComponent,
     MainComponent,
     DashboardComponent,
+    DataSharingComponent,
   ],
   imports: [
     BrowserModule,

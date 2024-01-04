@@ -10,11 +10,11 @@ export class SideNavbarComponent {
   
   constructor(private router: Router) {}
 
-  onButtonClick() {
-    this.router.navigate(['main/personal-details']);
-  }
+  // onButtonClick() {
+  //   this.router.navigate(['/personal-details']);
+  // }
 
-  onDashboardClick() {
-    this.router.navigate(['main/dashboard']);
-    }
+  // onDashboardClick() {
+  //   this.router.navigate(['/dashboard']);
+  //   }
 }

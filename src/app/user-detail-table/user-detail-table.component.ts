@@ -19,11 +19,11 @@ export class UserDetailTableComponent implements OnInit {
     private router: Router,
     private toast: ToastService
   ) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.fetchData();
-      }
-    });
+    // this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd) {
+    //     this.fetchData();
+    //   }
+    // });
   }
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class UserDetailTableComponent implements OnInit {
 
   //Opening personal detail in another page according to id
   viewDetail(userId: number) {
-    this.router.navigate(['main/user-details-list', userId]);
+    this.router.navigate(['/user-details-list', userId]);
   }
 
   //Deleting personal details according to id
@@ -54,14 +54,15 @@ export class UserDetailTableComponent implements OnInit {
     if (confirm('Are you sure you want to delete this record?')) {
       this.apiService.deletePersonalDetail(userId).subscribe(
         () => {
-          this.toast.showSuccess(
+          this.toast.showError(
             `Personal detail with id ${userId} deleted successfully.`
           );
+          this.fetchData();
 
           // Remove the deleted record from the displayed data
-          this.apiResponseData = this.apiResponseData.filter(
-            (item: any) => item.id !== userId
-          );
+          // this.apiResponseData = this.apiResponseData.filter(
+          //   (item: any) => item.id !== userId
+          // );
         },
         (error) => {
           console.error('Error while deleting personal detail:', error);
@@ -72,10 +73,10 @@ export class UserDetailTableComponent implements OnInit {
 
   //Updating personal detail using update form
   openUpdateForm(userId: number) {
-    this.router.navigate(['main/form-update', userId]);
+    this.router.navigate(['/form-update', userId]);
   }
 
   goToForm(){
-    this.router.navigate(['main/form']);
+    this.router.navigate(['/form']);
   }
 }

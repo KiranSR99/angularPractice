@@ -92,6 +92,7 @@ export class InfoFormComponent implements OnInit {
           // console.log('Successful.');
           if (response.status == 'Success') {
             this.toast.showSuccess('Personal Detail saved successfully.');
+            this.apiService.getPersonalDetail();
           } else {
             this.toast.showError("Unsuccessful");
           }
@@ -151,9 +152,9 @@ export class InfoFormComponent implements OnInit {
   }
 
   //Opening personal detail in another page according to id
-  viewDetail(userId: number) {
-    this.router.navigate(['/user-details-list', userId]);
-  }
+  // viewDetail(userId: number) {
+  //   this.router.navigate(['/user-details-list', userId]);
+  // }
 
   //Deleting personal details according to id
   deletePersonalDetail(userId: number) {
@@ -173,7 +174,7 @@ export class InfoFormComponent implements OnInit {
   }
 
   //Updating personal detail using update form
-  openUpdateForm(userId: number) {
-    this.router.navigate(['/form-update', userId]);
-  }
+  // openUpdateForm(userId: number) {
+  //   this.router.navigate(['/form-update', userId]);
+  // }
 }

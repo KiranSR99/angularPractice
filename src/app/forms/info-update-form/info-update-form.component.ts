@@ -115,8 +115,11 @@ export class InfoUpdateFormComponent {
     if (this.userInfo.valid) {
       // const updatedData = this.userInfo.value;
       this.apiService.updatePersonalDetail(data).subscribe(
-        () => {
-          this.toast.showSuccess("Personal Detail updated successfully.");
+        (response) => {
+          if(response.status == "Success"){
+            this.toast.showSuccess("Personal Detail updated successfully.");
+            this.location.back();
+          }
         },
         (error) => {
           console.error('Error while updating data.', error);
@@ -127,7 +130,7 @@ export class InfoUpdateFormComponent {
       );
 
       //navigate back to table on successful update
-      this.location.back();
+      
     }
   }
 
@@ -174,7 +177,7 @@ export class InfoUpdateFormComponent {
   //   return this.userInfo.reset();
   // }
 
-  goBack(){
+  goBackToTable(){
     this.location.back();
   }
 

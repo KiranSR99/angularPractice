@@ -9,13 +9,11 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
-  { path: 'user-detail', component: UserDetailTableComponent },
   {
-    path: 'main',
+    path: '',
     component: MainComponent,
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: DashboardComponent },
+      { path: 'main', component:DashboardComponent},
       { path: 'personal-details', component: UserDetailTableComponent },
       { path: 'form', component: InfoFormComponent },
       { path: 'user-details-list/:id', component: UserDetailsListComponent },
